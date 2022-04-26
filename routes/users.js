@@ -36,7 +36,6 @@ router.post('/', async (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log(3);
     // 回傳失敗
     res.status(400).json({
       status: 'false',
