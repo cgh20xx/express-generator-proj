@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema(
   },
   { versionKey: false }
 );
+// console.log(userSchema);
 
 const User = mongoose.model('User', userSchema);
 
