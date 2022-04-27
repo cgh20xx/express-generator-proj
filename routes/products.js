@@ -2,7 +2,8 @@
 const express = require('express');
 const router = express.Router();
 
-// 'http://localhost:3000/products?category=music&page=1' // 在 POSTMAN 發出 GET 請求
+// 在 POSTMAN 發出 GET 請求
+// 'http://localhost:3000/products?category=music&page=1'
 router.get('/', (req, res) => {
   // 取出參數
   const { category, page } = req.query;
