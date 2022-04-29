@@ -48,6 +48,33 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+// 查詢單筆資料
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const post = await PostModule.find({ _id: id });
+    if (post.length) {
+      res.status(200).json({
+        status: 'success',
+        data: {
+          post,
+        },
+      });
+    } else {
+      res.status(400).json({
+        status: 'false',
+        message: 'id 不存在',
+      });
+    }
+  } catch (error) {
+    // 回傳失敗
+    res.status(400).json({
+      status: 'false',
+      message: error.message,
+    });
+  }
+});
+
 // 刪除所有資料
 router.delete('/', async (req, res, next) => {
   await PostModule.deleteMany({});
