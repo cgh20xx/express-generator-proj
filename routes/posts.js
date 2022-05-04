@@ -3,12 +3,26 @@ var router = express.Router();
 const PostModule = require('../models/PostModel');
 
 // 查詢所有資料
+// demo: http://localhost:3000/posts?timeSort=asc&limit=2
 router.get('/', async (req, res, next) => {
-  const allPost = await PostModule.find();
-  res.status(200).json({
-    status: 'success',
-    data: allPost,
-  });
+  try {
+    // 使用三元運算子判斷是否為 asc (由舊至新)，若是則由舊至新排列，否則由新至舊排列
+    const timeSort = req.query.timeSort === 'asc' ? 'createAt' : '-createAt';
+    // 帶入網址列的參數
+    const limit = +req.query.limit;
+    console.log(limit);
+    const allPost = await PostModule.find().sort(timeSort).limit(limit);
+    res.status(200).json({
+      status: 'success',
+      data: allPost,
+    });
+  } catch (error) {
+    // 回傳失敗
+    res.status(400).json({
+      status: 'false',
+      message: error.message,
+    });
+  }
 });
 
 // 新增單筆資料
