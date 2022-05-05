@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
     const timeSort = req.query.timeSort === 'asc' ? 'createAt' : '-createAt';
     // 帶入網址列的參數
     const limit = +req.query.limit;
-    console.log(limit);
+
     const allPost = await PostModule.find().sort(timeSort).limit(limit);
     res.status(200).json({
       status: 'success',
